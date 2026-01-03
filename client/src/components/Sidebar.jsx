@@ -15,6 +15,9 @@ const Sidebar = ({isMenuOpen,setIsMenuOpen}) => {
  } = useAppContext();
  const [search,setSearch] = useState("")
 
+
+
+
   return (
     <div className={`flrx flex-col h-screen min-w-72 p-5 dark:bg-gradient-to-b
      from-[#242124]/30 to-[#000000]/30 border-r border-[#80609f]/30  
@@ -40,7 +43,11 @@ const Sidebar = ({isMenuOpen,setIsMenuOpen}) => {
          {
           chats.filter((chat)=>chat?.messages[0] ? chat?.messages[0]?.content.toLowerCase().includes(search.toLowerCase()) :
           chat.name.toLowerCase().includes(search.toLowerCase())).map((chat)=> (
-            <div key={chat._id} className='p-2 px-4 dark:bg-[#57317C]/10 border border-gray-300 dark:border-[#80609F]/15
+            <div onClick={()=>{
+              navigate("/");
+              setSelectedChat(chat);
+              setIsMenuOpen(false);
+            }} key={chat._id} className='p-2 px-4 dark:bg-[#57317C]/10 border border-gray-300 dark:border-[#80609F]/15
             rounded-md cursor-pointer flex justify-between group'>
                <div>
                 <p className='truncate w-full'>
@@ -57,6 +64,7 @@ const Sidebar = ({isMenuOpen,setIsMenuOpen}) => {
 
        <div onClick={()=>{
         navigate("/community")
+        setIsMenuOpen(false)
        }}
         className='flex items-center gap-2 p-3 mt-4 border border-gray-300
        dark:border-white/15 rounded-md cursor-pointer hover:scale-103 transition-all'>
@@ -67,6 +75,7 @@ const Sidebar = ({isMenuOpen,setIsMenuOpen}) => {
        </div>
        <div onClick={()=>{
         navigate("/credits")
+         setIsMenuOpen(false)
        }}
         className='flex items-center gap-2 p-3 mt-4 border border-gray-300
        dark:border-white/15 rounded-md cursor-pointer hover:scale-103 transition-all'>
