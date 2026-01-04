@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { assets } from '../assets/assets'
 import moment from 'moment'
+import Markdown from "react-markdown"
+import Prism from "prismjs"
 
 const Message = ({message}) => {
+
+  useEffect(()=>{
+    Prism.highlightAll();
+  },[message.content])
+
+
   return (
     <div>
       {message.role === "user" ? (
@@ -23,7 +31,9 @@ const Message = ({message}) => {
          ): 
          (
           <div className='text-sm dark:text-primary reset-tw'>
-            {message.content}
+            <Markdown>
+              {message.content}
+            </Markdown> 
             </div>
          )
          }
